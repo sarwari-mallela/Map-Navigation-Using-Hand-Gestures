@@ -10,7 +10,7 @@ Pan, zoom and click through Google Maps using 1 hand gestures in real time.
 ### Dependencies
 [MediaPipe](https://developers.google.com/mediapipe) for high-fidelity tracking of the hand.
 
-The project was developed using Python 3.9 due to MediaPipe seeming to have reports of compatibility issues, particularly with Windows and Python 3.11 [(Mediapipe issue #3849)](https://github.com/google/mediapipe/issues/3849)
+The project was developed using Python 3.9 due to MediaPipe having reports of compatibility issues, particularly with Windows and Python 3.11 [(Mediapipe issue #3849)](https://github.com/google/mediapipe/issues/3849)
 
 ### Compile and run
 
@@ -28,6 +28,6 @@ $ python setup.py install
 $
 ```
 
-## Contributing/License
+### Contributing/License
 
 Fork it, modify it, push it, eat it, summon a duck god with it. Whatever resonable day-to-day activity you prefer ( •ᴗ•)b
