@@ -10,7 +10,7 @@ Pan, zoom and click through Google Maps using 1 hand gestures in real time.
 ### Dependencies
 [MediaPipe](https://developers.google.com/mediapipe) for high-fidelity tracking of the hand.
 
-The project was developed using Python 3.9 due to MediaPipe seeming to have reports of compatibility issues, particularly with Windows and Python 3.11 [[“”]](https://github.com/google/mediapipe/issues/3849)
+The project was developed using Python 3.9 due to MediaPipe seeming to have reports of compatibility issues, particularly with Windows and Python 3.11 [(Mediapipe issue #3849)](https://github.com/google/mediapipe/issues/3849)
 
 ### Compile and run
 
@@ -20,7 +20,9 @@ $ git clone https://github.com/sarwari-mallela/Map-Navigation-Using-Hand-Gesture
 
 # If needed
 $ conda create -n mapnav python=3.9
-$ pip install mediapipe
+
+# Install project config
+$ python setup.py install
 
 # Execute script (Windows)
 $
