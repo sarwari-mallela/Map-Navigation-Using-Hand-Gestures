@@ -1,8 +1,8 @@
 
 import cv2
-from hand_tracking import HandTracker
+from .hand_tracking import HandTracker
 
-def gesture_detection(img, lm_list):
+def identify_gesture(img, lm_list):
     gestures = {}
     if len(lm_list) != 0:
         _, x_index, y_index = lm_list[8]  # Index Finger Tip
@@ -21,20 +21,17 @@ def gesture_detection(img, lm_list):
 
     return gestures
 
-def main():
+def gest_dect():
     cap = cv2.VideoCapture(0)
     tracker = HandTracker()
     while True:
         success, img = cap.read()
         img = tracker.find_hands(img)
         lm_list = tracker.find_position(img, draw=False)
-        gestures = gesture_detection(img, lm_list)
+        gestures = identify_gesture(img, lm_list)
 
         if (gestures != {}): print(list(gestures.keys())[0])
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
-if __name__ == "__main__":
-    main()

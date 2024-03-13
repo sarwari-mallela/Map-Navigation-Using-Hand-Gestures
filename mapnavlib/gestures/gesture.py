@@ -1,9 +1,10 @@
 
 import cv2 as cv
-from gesture_detection import gesture_detection
-from hand_tracking import HandTracker
+# relative input:
+from .gesture_detection import gest_dect
+from .hand_tracking import HandTracker
 
-def main():
+def gesture():
     cap = cv.VideoCapture(0)  # Capture video from the first webcam
     tracker = HandTracker()
     
@@ -18,7 +19,7 @@ def main():
         
         # Detect gestures based on landmark positions
         if lm_list:
-            gestures = gesture_detection(img, lm_list)
+            gestures = gest_dect(img, lm_list)
             # Example action based on detected gestures (extend this part)
             if gestures:
                 print("Detected gestures:", gestures)
@@ -32,6 +33,3 @@ def main():
 
     cap.release()
     cv.destroyAllWindows()
-
-if __name__ == "__main__":
-    main()
