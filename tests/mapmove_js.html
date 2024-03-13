@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Map Navigation</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+        <style>
+            html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            }
+            #map {
+            height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="map"></div>
+    </body>
+  
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        function updateMap(gesture) {
+            // Adjust once gesture controls work
+            var sensitivity = 10;
+
+            switch (gesture) {
+                case 'swipe-left':
+                map.panBy([-sensitivity, 0]);
+                break;
+                case 'swipe-right':
+                map.panBy([sensitivity, 0]);
+                break;
+                case 'swipe-up':
+                map.panBy([0, -sensitivity]);
+                break;
+                case 'swipe-down':
+                map.panBy([0, sensitivity]);
+                break;
+                case 'pinch-in':
+                map.zoomIn();
+                break;
+                case 'pinch-out':
+                map.zoomOut();
+                break;
+                default:
+                // No recognized gesture
+                break;
+            }
+        }
+        
+        // This is where gesture data is given
+        function recognizeGesture() {
+            return;
+        }
+        
+        setInterval(function() {
+            var gesture = recognizeGesture();
+            if (gesture) { updateMap(gesture); }
+        }, 100); // Adjust once gesture controls work
+    </script>
+
+</html>
