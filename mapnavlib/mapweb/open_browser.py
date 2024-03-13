@@ -29,7 +29,7 @@ def open_browser_with_file(browser_name, file_path):
         return None
 
 def wait_q_keypress():
-    print("Press 'q' to quit.")
+    print("Press 'q' to quit")
     keyboard.wait('q')
 
 def execute_js(driver, file_path):
@@ -43,7 +43,7 @@ def execute_js(driver, file_path):
 def open_html_n_exec():
     html_path = get_full_path('mapmove_js.html')
     js_path = get_full_path('maps_controller.js')
-    print("executing...")
+    print("Opening browser...")
 
     for browser in ['firefox', 'chrome', 'safari']:
         driver = open_browser_with_file(browser, html_path)
