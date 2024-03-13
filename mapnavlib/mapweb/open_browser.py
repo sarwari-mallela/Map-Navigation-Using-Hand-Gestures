@@ -3,7 +3,6 @@ import os
 import keyboard
 from selenium import webdriver
 
-
 def get_full_path(relative_path):
     # Get the directory of the current file (__file__ is the path to the current script)
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -28,10 +27,6 @@ def open_browser_with_file(browser_name, file_path):
         print(f"Failed to open {browser_name}: {e}")
         return None
 
-def wait_q_keypress():
-    print("Press 'q' to quit")
-    keyboard.wait('q')
-
 def execute_js(driver, file_path):
     try:
         with open(file_path, 'r') as js_file:
@@ -40,7 +35,7 @@ def execute_js(driver, file_path):
     except Exception as e:
         print(f"Failed to execute script from {file_path}: {e}")
 
-def open_html_n_exec():
+def open_html_n_exec(shared_state):
     html_path = get_full_path('mapmove_js.html')
     js_path = get_full_path('maps_controller.js')
     print("Opening browser...")
@@ -54,5 +49,7 @@ def open_html_n_exec():
         print("No supported browsers found.")
 
     if driver:
-        wait_q_keypress()
+        print("Press 'q' to quit")
+        keyboard.wait('q')
+        shared_state.set_exit_flag(True)
         driver.quit()

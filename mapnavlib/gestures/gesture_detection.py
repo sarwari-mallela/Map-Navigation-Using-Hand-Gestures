@@ -22,12 +22,12 @@ def identify_gesture(img, lm_list):
 
     return gestures
 
-def gest_dect():
+def gest_dect(shared_state):
     print("Initialising camera and MediaPipe gestures...")
     try:
         cap = cv.VideoCapture(0)
         tracker = HandTracker()
-        while True:
+        while not shared_state.should_exit():
             success, img = cap.read()
             if not success:
                 raise Exception("Trying to read camera broke something")
@@ -39,6 +39,7 @@ def gest_dect():
 
             cv.imshow("Image", img)
             if cv.waitKey(1) & 0xFF == ord('q'):
+                shared_state.set_exit_flag(True)
                 break
         
         cap.release()
