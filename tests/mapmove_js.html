@@ -7,12 +7,12 @@
 
         <style>
             html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
+                height: 100%;
+                margin: 0;
+                padding: 0;
             }
             #map {
-            height: 100%;
+                height: 100%;
             }
         </style>
     </head>
@@ -30,27 +30,27 @@
 
         function updateMap(gesture) {
             // Adjust once gesture controls work
-            var sensitivity = 10;
+            var sensitivity = 100;
 
             switch (gesture) {
-                case 'swipe-left':
-                map.panBy([-sensitivity, 0]);
-                break;
-                case 'swipe-right':
-                map.panBy([sensitivity, 0]);
-                break;
-                case 'swipe-up':
-                map.panBy([0, -sensitivity]);
-                break;
-                case 'swipe-down':
-                map.panBy([0, sensitivity]);
-                break;
-                case 'pinch-in':
-                map.zoomIn();
-                break;
-                case 'pinch-out':
-                map.zoomOut();
-                break;
+                case 'left':
+                    map.panBy([-sensitivity, 0]);
+                    break;
+                case 'right':
+                    map.panBy([sensitivity, 0]);
+                    break;
+                case 'up':
+                    map.panBy([0, -sensitivity]);
+                    break;
+                case 'down':
+                    map.panBy([0, sensitivity]);
+                    break;
+                case 'zin':
+                    map.zoomIn();
+                    break;
+                case 'zout':
+                    map.zoomOut();
+                    break;
                 default:
                 // No recognized gesture
                 break;

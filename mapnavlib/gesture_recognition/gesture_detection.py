@@ -1,5 +1,6 @@
-from hand_tracking import HandTracker
+
 import cv2
+from hand_tracking import HandTracker
 
 def gesture_detection(img, lm_list):
     gestures = {}
@@ -29,7 +30,7 @@ def main():
         lm_list = tracker.find_position(img, draw=False)
         gestures = gesture_detection(img, lm_list)
 
-        print(gestures)  # For demonstration, print detected gestures
+        if (gestures != {}): print(list(gestures.keys())[0])
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xFF == ord('q'):
