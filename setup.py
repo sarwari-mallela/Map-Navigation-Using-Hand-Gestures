@@ -11,7 +11,11 @@ version = version_data.get("__version__", "0.0")
 
 install_requires = [
     "numpy==1.26.4"
+    , "matplotlib==3.8.3"
     , "mediapipe==0.10.11"
+    , "folium==0.16.0"
+    , "selenium==4.18.1"
+    , "keyboard==0.13.5"
 ]
 
 setup(

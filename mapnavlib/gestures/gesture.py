@@ -1,9 +1,11 @@
-from gesture_detection import gesture_detection
-from hand_tracking import HandTracker
-import cv2
 
-def main():
-    cap = cv2.VideoCapture(0)  # Capture video from the first webcam
+import cv2 as cv
+# relative input:
+from .gesture_detection import gest_dect
+from .hand_tracking import HandTracker
+
+def gesture():
+    cap = cv.VideoCapture(0)  # Capture video from the first webcam
     tracker = HandTracker()
     
     while True:
@@ -17,7 +19,7 @@ def main():
         
         # Detect gestures based on landmark positions
         if lm_list:
-            gestures = gesture_detection(img, lm_list)
+            gestures = gest_dect(img, lm_list)
             # Example action based on detected gestures (extend this part)
             if gestures:
                 print("Detected gestures:", gestures)
@@ -25,12 +27,9 @@ def main():
                 # such as controlling Google Maps.
 
         # Display the image
-        cv2.imshow("Gesture Controlled Google Maps", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        cv.imshow("Gesture Controlled Google Maps", img)
+        if cv.waitKey(1) & 0xFF == ord('q'):
             break
 
     cap.release()
-    cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    main()
+    cv.destroyAllWindows()
