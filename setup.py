@@ -23,6 +23,6 @@ setup(
     , version=version
     , install_requires=install_requires
     , package_dir={"mapnavlib": "mapnavlib"}
-    , python_requires="=3.9"
+    , python_requires=">=3.9, <3.10"
     , packages=find_packages(where=".", exclude=["docs", "tests"])
 )
