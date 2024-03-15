@@ -29,12 +29,18 @@ def identify_gesture(img, lm_list):
 
         # Define a threshold for the thumb and index finger distance to be considered a gesture
         pinch_threshold = 50
-
         if thumb_index_distance < pinch_threshold:
             gestures['zoom_out'] = True
         elif abs(lm_list[4][1] - lm_list[8][1]) < pinch_threshold and abs(lm_list[4][2] - lm_list[8][2]) > pinch_threshold:
             gestures['zoom_in'] = True
+            
+        # Gesture priority system to only print out the most important gesture if multiple gestures are detected. 
+        gesture_priority = ['zoom_in', 'zoom_out', 'pan_up', 'pan_down', 'pan_left', 'pan_right', 'standby']
 
+        for gesture in gesture_priority:
+            if gestures.get(gesture):
+                return {gesture: True}
+            
     return gestures
 
 def gest_dect():
