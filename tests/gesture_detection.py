@@ -1,4 +1,6 @@
+
 import cv2 as cv
+import json
 from hand_tracking import HandTracker
 
 def identify_gesture(img, lm_list):
@@ -44,23 +46,41 @@ def identify_gesture(img, lm_list):
     return gestures
 
 def gest_dect():
-    cap = cv.VideoCapture(0)
-    tracker = HandTracker()
-    while True:
-        success, img = cap.read()
-        img = tracker.find_hands(img)
-        lm_list = tracker.find_position(img, draw=False)
-        gestures = identify_gesture(img, lm_list)
-        print(gestures)
-        # Calculate the middle point of the image
-        img_center_x, img_center_y = img.shape[1] // 2, img.shape[0] // 2
+    print("Initialising camera and MediaPipe gestures...")
+    try:
+        cap = cv.VideoCapture(0)
+        tracker = HandTracker()
+        c = 0
+        prev_gest = ""
+        while 1:
+            success, img = cap.read()
+            if not success:
+                raise Exception("Failed to read from camera")
 
-        # Draw the middle point on the image for reference
-        cv.circle(img, (img_center_x, img_center_y), 5, (0, 255, 0), cv.FILLED)
+            img = tracker.find_hands(img)
+            lm_list = tracker.find_position(img, draw=False)
+            gestures = identify_gesture(img, lm_list)
 
-        # Display the image
-        cv.imshow("Image", img)
-        if cv.waitKey(1) & 0xFF == ord('q'):
-            break
-        
+            # Write the gesture to a JSON file if gesture is different
+            if gestures:
+                last_gest = list(gestures.keys())[0]
+                if prev_gest != last_gest:
+                    print(f"gest {c}: {last_gest}")
+                    # with open("../../gestures.json", "w") as file:
+                    with open("./gestures.json", "w") as file:
+                        json.dump(last_gest, file)
+                    c+=1
+                    prev_gest = last_gest
+
+            cv.imshow("Image", img)
+            if cv.waitKey(1) & 0xFF == ord('q'):
+                break
+
+        cap.release()
+        cv.destroyAllWindows()
+    
+    except Exception as e:
+        print(f"Error in gesture detection: {e}")
+
+
 gest_dect()
