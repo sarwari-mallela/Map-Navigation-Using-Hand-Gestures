@@ -37,10 +37,17 @@ function updateMap(gesture) {
 
 // This is where gesture data is given
 function recognizeGesture() {
-    return;
+    fetch('../../gestures.json')
+        .then(response => response.json())
+        .then(data => {
+            let gesture = data.gesture;
+            if (gesture) {
+                updateMap(gesture);
+            }
+        })
+        .catch(error => console.log('Error fetching gesture data:', error));
 }
 
 setInterval(function() {
-    let gesture = recognizeGesture();
-    if (gesture) { updateMap(gesture); }
+    recognizeGesture();
 }, 100); // Adjust once gesture controls work

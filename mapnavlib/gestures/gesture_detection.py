@@ -1,7 +1,6 @@
 
 import cv2 as cv
 from .hand_tracking import HandTracker
-# from hand_tracking import HandTracker
 
 def identify_gesture(img, lm_list):
     gestures = {}

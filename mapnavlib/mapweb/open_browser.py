@@ -4,7 +4,6 @@ import keyboard
 from selenium import webdriver
 
 def get_full_path(relative_path):
-    # Get the directory of the current file (__file__ is the path to the current script)
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Construct the full path by joining the current directory with the relative path
     return os.path.join(current_dir, relative_path)
