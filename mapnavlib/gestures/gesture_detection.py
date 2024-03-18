@@ -1,5 +1,6 @@
 
 import cv2 as cv
+import json
 from .hand_tracking import HandTracker
 
 def identify_gesture(img, lm_list):
@@ -21,26 +22,35 @@ def identify_gesture(img, lm_list):
 
     return gestures
 
-def gest_dect(shared_state):
+def gest_dect():
     print("Initialising camera and MediaPipe gestures...")
     try:
         cap = cv.VideoCapture(0)
         tracker = HandTracker()
-        while not shared_state.should_exit():
+        prev_gest = ""
+        while 1:
             success, img = cap.read()
             if not success:
-                raise Exception("Trying to read camera broke something")
-                
+                raise Exception("Failed to read from camera")
+
             img = tracker.find_hands(img)
             lm_list = tracker.find_position(img, draw=False)
             gestures = identify_gesture(img, lm_list)
-            if (gestures != {}): print(list(gestures.keys())[0])
+
+            # Write the gesture to a JSON file if gesture is different
+            if gestures:
+                last_gest = list(gestures.keys())[0]
+                if prev_gest != last_gest:
+                    print(f"gest: {last_gest}")
+                    # with open("../../gestures.json", "w") as file:
+                    with open("./gestures.json", "w") as file:
+                        json.dump(last_gest, file)
+                    prev_gest = last_gest
 
             cv.imshow("Image", img)
             if cv.waitKey(1) & 0xFF == ord('q'):
-                shared_state.set_exit_flag(True)
                 break
-        
+
         cap.release()
         cv.destroyAllWindows()
     
