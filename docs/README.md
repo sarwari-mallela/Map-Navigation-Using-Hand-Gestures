@@ -1,6 +1,6 @@
 ## Map Navigation Using Hand Gestures
 
-![Static Badge](https://img.shields.io/badge/version-0.1-orange)
+![Static Badge](https://img.shields.io/badge/version-0.2-yellow)
 ![Static Badge](https://img.shields.io/badge/python-3.9-blue)
 
 Pan, zoom and click through Google Maps using 1 hand gestures in real time.
@@ -41,7 +41,7 @@ $ python .\main.py
 
 Open your preferred browser at: http://localhost:8000/mapnavlib/mapweb/mapmove.html
 
-For ease of use we recommend positioning the OpenCV camera and browser like the gif seen above.
+For ease of use, we recommend positioning the OpenCV camera and browser like the gif seen above.
 
 ### Contributing/License
 
