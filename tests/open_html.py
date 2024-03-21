@@ -15,7 +15,7 @@ def start_server(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler
     print(f"Starting httpd server on port {port}")
     httpd.serve_forever()
 
-def open_html_n_exec(shared_state):
+def open_html_n_exec():
     relative_path = 'mapmove.html'
     full_path = get_full_path(relative_path)
     directory = os.path.dirname(full_path)
@@ -33,4 +33,6 @@ def open_html_n_exec(shared_state):
 
     print("Press 'q' to quit")
     keyboard.wait('q')
-    shared_state.set_exit_flag(True)
+    # shared_state.set_exit_flag(True)
+
+open_html_n_exec()
