@@ -43,7 +43,8 @@ def gest_dect(shared_state):
                 if prev_gest != last_gest:
                     print(f"gest: {last_gest}")
                     with open("./mapnavlib/gestures.json", "w") as file:
-                        json.dump(last_gest, file)
+                        # Save gesture as an object with a 'gesture' property
+                        json.dump({"gesture": last_gest}, file)
                     prev_gest = last_gest
 
             cv.imshow("Image", img)

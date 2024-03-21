@@ -1,7 +1,9 @@
 
-console.log("executing script");
+console.log("executing map_controller");
 
 function updateMap(gesture) {
+    console.log("we cookin: ", gesture);
+
     // Adjust once gesture controls work
     let sensitivity = 100;
 
@@ -26,13 +28,14 @@ function updateMap(gesture) {
             break;
         default:
         // No recognized gesture
+        console.log('no recognised gesture')
         break;
     }
 }
 
 // This is where gesture data is given
 function recognizeGesture() {
-    fetch('./mapnavlib/gestures.json')
+    fetch('../gestures.json')
         .then(response => response.json())
         .then(data => {
             let gesture = data.gesture;
@@ -45,4 +48,4 @@ function recognizeGesture() {
 
 setInterval(function() {
     recognizeGesture();
-}, 100); // Adjust once gesture controls work
+}, 2000);
