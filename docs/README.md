@@ -3,7 +3,7 @@
 ![Static Badge](https://img.shields.io/badge/version-0.2-yellow)
 ![Static Badge](https://img.shields.io/badge/python-3.9-blue)
 
-Pan, zoom and click through Google Maps using 1 hand gestures in real time.
+Pan, zoom and click through 'Google-Maps-like' map using one hand gestures in real time.
 
 ![Gif of repo in action](./gif.gif)
 
