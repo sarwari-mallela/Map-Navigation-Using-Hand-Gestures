@@ -1,5 +1,5 @@
 
-import cv2
+import cv2 as cv
 import mediapipe as mp
 
 class HandTracker:
@@ -9,7 +9,7 @@ class HandTracker:
         self.mp_draw = mp.solutions.drawing_utils
 
     def find_hands(self, img, draw=True):
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img_rgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         self.results = self.hands.process(img_rgb)
         if self.results.multi_hand_landmarks and draw:
             for hand_lms in self.results.multi_hand_landmarks:
@@ -25,19 +25,5 @@ class HandTracker:
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 lm_list.append((id, cx, cy))
                 if draw:
-                    cv2.circle(img, (cx, cy), 7, (255, 0, 255), cv2.FILLED)
+                    cv.circle(img, (cx, cy), 7, (255, 0, 255), cv.FILLED)
         return lm_list
-
-def main():
-    cap = cv2.VideoCapture(0)
-    tracker = HandTracker()
-    while True:
-        success, img = cap.read()
-        img = tracker.find_hands(img)
-        lm_list = tracker.find_position(img)
-        cv2.imshow("Image", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-if __name__ == "__main__":
-    main()

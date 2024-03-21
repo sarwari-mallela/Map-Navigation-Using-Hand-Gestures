@@ -1,7 +1,7 @@
 
 import cv2 as cv
 import json
-from .hand_tracking import HandTracker
+from mapnavlib.gestures.hand_tracking import HandTracker
 
 def identify_gesture(img, lm_list):
     gestures = {}
@@ -23,7 +23,7 @@ def identify_gesture(img, lm_list):
     return gestures
 
 def gest_dect(shared_state):
-    print("Initialising camera and MediaPipe gestures...")
+    print("> Initialising camera and MediaPipe gestures...")
     try:
         cap = cv.VideoCapture(0)
         tracker = HandTracker()
