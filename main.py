@@ -12,7 +12,7 @@ def main():
 
     # Create threads for gesture detection and opening the browser
     gesture_thread = threading.Thread(target=gest_dect, args=(shared_state,))
-    browser_thread = threading.Thread(target=open_html_n_exec, args=(shared_state,))
+    browser_thread = threading.Thread(target=open_html_n_exec, args=(shared_state))
 
     # Start the threads
     gesture_thread.start()

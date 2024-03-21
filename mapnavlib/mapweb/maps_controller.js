@@ -11,22 +11,22 @@ function updateMap(gesture) {
     let sensitivity = 100;
 
     switch (gesture) {
-        case 'left':
+        case 'pan_left':
             map.panBy([-sensitivity, 0]);
             break;
-        case 'right':
+        case 'pan_right':
             map.panBy([sensitivity, 0]);
             break;
-        case 'up':
+        case 'pan_up':
             map.panBy([0, -sensitivity]);
             break;
-        case 'down':
+        case 'pan_down':
             map.panBy([0, sensitivity]);
             break;
-        case 'zin':
+        case 'zoom_in':
             map.zoomIn();
             break;
-        case 'zout':
+        case 'zoom_out':
             map.zoomOut();
             break;
         default:
@@ -37,7 +37,7 @@ function updateMap(gesture) {
 
 // This is where gesture data is given
 function recognizeGesture() {
-    fetch('../../gestures.json')
+    fetch('./mapnavlib/gestures.json')
         .then(response => response.json())
         .then(data => {
             let gesture = data.gesture;

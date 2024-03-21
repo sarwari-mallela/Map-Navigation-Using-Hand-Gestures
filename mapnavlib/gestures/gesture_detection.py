@@ -22,7 +22,7 @@ def identify_gesture(img, lm_list):
 
     return gestures
 
-def gest_dect():
+def gest_dect(shared_state):
     print("Initialising camera and MediaPipe gestures...")
     try:
         cap = cv.VideoCapture(0)
@@ -42,13 +42,13 @@ def gest_dect():
                 last_gest = list(gestures.keys())[0]
                 if prev_gest != last_gest:
                     print(f"gest: {last_gest}")
-                    # with open("../../gestures.json", "w") as file:
-                    with open("./gestures.json", "w") as file:
+                    with open("./mapnavlib/gestures.json", "w") as file:
                         json.dump(last_gest, file)
                     prev_gest = last_gest
 
             cv.imshow("Image", img)
             if cv.waitKey(1) & 0xFF == ord('q'):
+                shared_state.set_exit_flag(True)
                 break
 
         cap.release()
