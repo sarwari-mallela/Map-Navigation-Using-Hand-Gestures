@@ -1,6 +1,6 @@
 ## Map Navigation Using Hand Gestures
 
-![Static Badge](https://img.shields.io/badge/version-0.2-yellow)
+![Static Badge](https://img.shields.io/badge/version-1.0-green)
 ![Static Badge](https://img.shields.io/badge/python-3.9-blue)
 
 Pan, zoom and click through 'Google-Maps-like' map using one hand gestures in real time.
