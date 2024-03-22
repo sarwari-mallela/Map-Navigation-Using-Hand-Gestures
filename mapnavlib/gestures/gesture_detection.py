@@ -1,7 +1,7 @@
 
 import cv2 as cv
 import json
-from .hand_tracking import HandTracker
+from mapnavlib.gestures.hand_tracking import HandTracker
 
 def identify_gesture(img, lm_list):
     gestures = {}
@@ -22,8 +22,8 @@ def identify_gesture(img, lm_list):
 
     return gestures
 
-def gest_dect():
-    print("Initialising camera and MediaPipe gestures...")
+def gest_dect(shared_state):
+    print("> Initialising camera and MediaPipe gestures...")
     try:
         cap = cv.VideoCapture(0)
         tracker = HandTracker()
@@ -42,13 +42,14 @@ def gest_dect():
                 last_gest = list(gestures.keys())[0]
                 if prev_gest != last_gest:
                     print(f"gest: {last_gest}")
-                    # with open("../../gestures.json", "w") as file:
-                    with open("./gestures.json", "w") as file:
-                        json.dump(last_gest, file)
+                    with open("./mapnavlib/gestures.json", "w") as file:
+                        # Save gesture as an object with a 'gesture' property
+                        json.dump({"gesture": last_gest}, file)
                     prev_gest = last_gest
 
             cv.imshow("Image", img)
             if cv.waitKey(1) & 0xFF == ord('q'):
+                shared_state.set_exit_flag(True)
                 break
 
         cap.release()
