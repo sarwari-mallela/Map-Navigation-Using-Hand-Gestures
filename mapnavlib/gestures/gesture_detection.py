@@ -6,20 +6,43 @@ from mapnavlib.gestures.hand_tracking import HandTracker
 def identify_gesture(img, lm_list):
     gestures = {}
     if len(lm_list) != 0:
-        _, x_index, y_index = lm_list[8]  # Index Finger Tip
-        _, x_thumb, y_thumb = lm_list[4]  # Thumb Tip
+        # Calculate the center of the hand
+        x_center = sum(lm[1] for lm in lm_list) / len(lm_list)
+        y_center = sum(lm[2] for lm in lm_list) / len(lm_list)
 
-        # Pan Gestures
-        if y_index < y_thumb - 100: gestures['pan_up'] = True
-        elif y_index > y_thumb + 100: gestures['pan_down'] = True
-        if x_index > x_thumb + 100: gestures['pan_right'] = True
-        elif x_index < x_thumb - 100: gestures['pan_left'] = True
+        # Define a threshold for movement to be considered a gesture
+        movement_threshold = 50  # Adjusted threshold
 
-        # Zoom Gestures
-        dist = ((x_index - x_thumb) ** 2 + (y_index - y_thumb) ** 2) ** 0.5
-        if dist < 50: gestures['zoom_out'] = True
-        elif dist > 200: gestures['zoom_in'] = True
+        # Compare the center of the hand to the center of the image to identify gestures
+        img_center_x, img_center_y = img.shape[1] // 2, img.shape[0] // 2
 
+        # Draw a circle at the center of the hand for debugging
+        cv.circle(img, (int(x_center), int(y_center)), 5, (0, 0, 255), cv.FILLED)
+
+        if abs(y_center - img_center_y) < movement_threshold and abs(x_center - img_center_x) < movement_threshold:
+            gestures['standby'] = True
+        elif y_center < img_center_y - movement_threshold: gestures['pan_up'] = True
+        elif y_center > img_center_y + movement_threshold: gestures['pan_down'] = True
+        if x_center > img_center_x + movement_threshold: gestures['pan_left'] = True
+        elif x_center < img_center_x - movement_threshold: gestures['pan_right'] = True
+
+        # Calculate the distance between the thumb and the index finger
+        thumb_index_distance = ((lm_list[4][1] - lm_list[8][1]) ** 2 + (lm_list[4][2] - lm_list[8][2]) ** 2) ** 0.5
+
+        # Define a threshold for the thumb and index finger distance to be considered a gesture
+        pinch_threshold = 50
+        if thumb_index_distance < pinch_threshold:
+            gestures['zoom_out'] = True
+        elif abs(lm_list[4][1] - lm_list[8][1]) < pinch_threshold and abs(lm_list[4][2] - lm_list[8][2]) > pinch_threshold:
+            gestures['zoom_in'] = True
+            
+        # Gesture priority system to only print out the most important gesture if multiple gestures are detected. 
+        gesture_priority = ['zoom_in', 'zoom_out', 'pan_up', 'pan_down', 'pan_left', 'pan_right', 'standby']
+
+        for gesture in gesture_priority:
+            if gestures.get(gesture):
+                return {gesture: True}
+            
     return gestures
 
 def gest_dect(shared_state):

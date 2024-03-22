@@ -2,7 +2,7 @@
 console.log("executing map_controller");
 
 function updateMap(gesture) {
-    console.log("we cookin: ", gesture);
+    // console.log("we cookin: ", gesture);
 
     // Adjust once gesture controls work
     let sensitivity = 100;
@@ -28,7 +28,7 @@ function updateMap(gesture) {
             break;
         default:
         // No recognized gesture
-        console.log('no recognised gesture')
+        console.log('no recognised gesture');
         break;
     }
 }
@@ -48,4 +48,4 @@ function recognizeGesture() {
 
 setInterval(function() {
     recognizeGesture();
-}, 2000);
+}, 750);
