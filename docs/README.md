@@ -5,7 +5,7 @@
 
 Pan, zoom and click through 'Google-Maps-like' map using one hand gestures in real time.
 
-![Gif of repo in action](./gif.gif)
+![Gif of repo in action](../gif.gif)
 
 ### Dependencies
 [MediaPipe](https://developers.google.com/mediapipe) for high-fidelity tracking of the hand.
