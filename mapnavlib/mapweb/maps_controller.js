@@ -1,46 +1,51 @@
 
-console.log("executing script");
-
-let map = L.map('map').setView([0, 0], 2);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+console.log("executing map_controller");
 
 function updateMap(gesture) {
+    console.log("we cookin: ", gesture);
+
     // Adjust once gesture controls work
     let sensitivity = 100;
 
     switch (gesture) {
-        case 'left':
+        case 'pan_left':
             map.panBy([-sensitivity, 0]);
             break;
-        case 'right':
+        case 'pan_right':
             map.panBy([sensitivity, 0]);
             break;
-        case 'up':
+        case 'pan_up':
             map.panBy([0, -sensitivity]);
             break;
-        case 'down':
+        case 'pan_down':
             map.panBy([0, sensitivity]);
             break;
-        case 'zin':
+        case 'zoom_in':
             map.zoomIn();
             break;
-        case 'zout':
+        case 'zoom_out':
             map.zoomOut();
             break;
         default:
         // No recognized gesture
+        console.log('no recognised gesture')
         break;
     }
 }
 
 // This is where gesture data is given
 function recognizeGesture() {
-    return;
+    fetch('../gestures.json')
+        .then(response => response.json())
+        .then(data => {
+            let gesture = data.gesture;
+            if (gesture) {
+                updateMap(gesture);
+            }
+        })
+        .catch(error => console.log('Error fetching gesture data:', error));
 }
 
 setInterval(function() {
-    let gesture = recognizeGesture();
-    if (gesture) { updateMap(gesture); }
-}, 100); // Adjust once gesture controls work
+    recognizeGesture();
+}, 2000);
